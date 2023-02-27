@@ -28,18 +28,23 @@ public class Server {
             int count = 0;
             while ((flag = input.readUTF()) != null){
                 if (flag.equals("bye")){
+                    output.close();
+                    input.close();
+                    clientSocket.close();
+                    serverSocket.close();
                     break;
+                }
+                if (flag.equals("exit") && username.equals("admin")){
+                    output.close();
+                    input.close();
+                    clientSocket.close();
+                    serverSocket.close();
                 }
                 count++;
                 String message = count + " - " + flag;
                 System.out.println("Получено сообщение №" + message);
                 output.writeUTF(message);
             }
-
-            output.close();
-            input.close();
-            clientSocket.close();
-            serverSocket.close();
 
             // Ждем от клиента сообщения с именем пользователя
 //            String username = input.readUTF();
